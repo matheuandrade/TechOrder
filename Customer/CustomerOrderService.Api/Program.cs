@@ -12,7 +12,17 @@ builder.Services
     .AddApplication()    
     .AddControllers();
 
-builder.Services.AddHttpClient();
+var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+builder.Services.AddHttpClient("SupplierApi", client =>
+{
+    client.BaseAddress = new Uri($"{config.GetValue<string>("SupplierBaseURI")}");
+});
 builder.Services.AddScoped<CustomerOrderService.Core.External.Suppliers.Interfaces.ISupplierApiService, CustomerOrderService.Infrastructure.External.Suppliers.SupplierApiService>();
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());

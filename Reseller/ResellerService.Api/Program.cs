@@ -12,6 +12,19 @@ builder.Services
     .AddInfrastructure()
     .AddControllers();
 
+var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+builder.Services.AddHttpClient("SupplierApi", client =>
+{
+    client.BaseAddress = new Uri($"{config.GetValue<string>("SupplierBaseURI")}");
+});
+builder.Services.AddScoped<ResellerService.Core.External.Supplier.ISupplierApiService, ResellerService.Infrastructure.External.SupplierApiService>();
+
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

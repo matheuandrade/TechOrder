@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using ResellerService.Core.Entities;
 using ResellerService.Core.Entities.ResellerAggregate;
 using ResellerService.Core.Entities.ResellerAggregate.Errors;
+using ResellerService.Core.External.Supplier;
 using ResellerService.Core.Interfaces;
 using SharedKernel;
 

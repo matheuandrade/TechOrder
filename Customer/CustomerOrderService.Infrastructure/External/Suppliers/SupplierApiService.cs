@@ -13,7 +13,7 @@ public class SupplierApiService(IHttpClientFactory httpClientFactory) : ISupplie
     {
         var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync("supplier/reseller", content, cancellationToken);
+        var response = await _httpClient.PostAsync("orders", content, cancellationToken);
         var contentAsString = await response.Content.ReadAsStringAsync(cancellationToken);
 
         if (response.StatusCode != System.Net.HttpStatusCode.Created)

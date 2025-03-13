@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using ResellerService.Aplication.Reseller.Register;
+using ResellerService.Core.External.Supplier;
 using ResellerService.Core.Interfaces;
 using System.Linq.Expressions;
 

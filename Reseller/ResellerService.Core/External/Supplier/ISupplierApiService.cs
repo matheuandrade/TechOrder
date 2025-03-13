@@ -1,4 +1,4 @@
-﻿namespace ResellerService.Core.Interfaces;
+﻿namespace ResellerService.Core.External.Supplier;
 
 public interface ISupplierApiService
 {
