@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CustomerOrderService.Application\CustomerOrderService.Application.csproj" />
+    <ProjectReference Include="..\CustomerOrderService.Core\CustomerOrderService.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
