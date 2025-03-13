@@ -8,8 +8,8 @@ using SupplierOrderService.Core.Entities.Errors;
 
 namespace SupplierOrderService.Application.Order.Create;
 
-public class RegisterResellerCommandHandler(IApplicationDbContext context,
-                                            ILogger<RegisterResellerCommandHandler> logger)
+public class CreateOrderCommandHandler(IApplicationDbContext context,
+                                            ILogger<CreateOrderCommandHandler> logger)
     : IRequestHandler<CreateOrderCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
