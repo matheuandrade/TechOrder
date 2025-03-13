@@ -8,6 +8,8 @@ public class Order
 
     public List<OrderItem> Products { get; set; } = [];
 
+    public Order() { }
+
     private Order(string cnpj, List<OrderItem> products)
     {
         ResellerCnpj = cnpj;

@@ -1,6 +1,6 @@
 ﻿namespace CustomerOrderService.Application.Dto;
 
-public class ProductDto
+public class OrderItemDto
 {
     public string ProductReference { get; set; } = null!;
 

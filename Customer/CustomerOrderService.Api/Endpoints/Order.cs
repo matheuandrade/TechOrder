@@ -1,14 +1,14 @@
-﻿using FluentValidation;
+﻿using CustomerOrderService.Application.Dto;
+using CustomerOrderService.Application.Order.Create;
+using CustomerOrderService.Extensions;
+using CustomerOrderService.Infrastructure;
+using FluentValidation;
 using MediatR;
 using SharedKernel;
-using SupplierOrderService.Application.Dto;
-using SupplierOrderService.Application.Order.Create;
-using SupplierOrderService.Extensions;
-using SupplierOrderService.Infrastructure;
 
-namespace SupplierOrderService.Api.Endpoints.Order;
+namespace CustomerOrderService.Api.Endpoints;
 
-internal sealed class Create : IEndpoint
+internal sealed class Order : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
@@ -24,12 +24,12 @@ internal sealed class Create : IEndpoint
                 return Results.BadRequest(validationResult.Errors);
             }
 
-            var command = new CreateOrderCommand(request);
+            var command = new CreateOrderCustomerCommand(request);
 
             Result<Guid> result = await sender.Send(command, cancellationToken);
 
-            return result.Match(id => Results.Created($"/orders/{id}", new { id }), CustomResults.Problem);
+            return result.Match(id => Results.Created($"/resellers/{id}", new { id }), CustomResults.Problem);
         })
-        .WithTags("orders");
+        .WithTags("resellers");
     }
 }

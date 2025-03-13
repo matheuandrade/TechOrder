@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedKernel\SharedKernel.csproj" />
+    <ProjectReference Include="..\CustomerOrderService.Core\CustomerOrderService.Core.csproj" />
+    <ProjectReference Include="..\CustomerOrderService.Infrastructure\CustomerOrderService.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

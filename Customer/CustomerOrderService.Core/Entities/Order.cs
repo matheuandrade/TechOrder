@@ -2,9 +2,9 @@
 
 public class Order
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public string CPF { get; set; } = null!;
 
-    public List<Product> Products { get; set; } = [];
+    public List<OrderItem> Products { get; set; } = [];
 }

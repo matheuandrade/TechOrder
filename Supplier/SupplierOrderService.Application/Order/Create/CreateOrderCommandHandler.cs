@@ -28,7 +28,7 @@ public class RegisterResellerCommandHandler(IApplicationDbContext context,
             };
         }).ToList());
 
-        //Todo: add some logic to validate the product quantity is available on supplier inventory
+        //Todo: add some logic to validate if product quantity is available on supplier inventory
 
         await context.Orders.AddAsync(order, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
