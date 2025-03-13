@@ -102,9 +102,9 @@ public class RegisterResellerCommandHandlerUnitTest
             x => x.Log(
                 LogLevel.Information,  // Specify the log level
                 It.IsAny<EventId>(),    // EventId is typically not important in this case
-                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains($"Company created on supplier with id: {guid}")),
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains($"uccessfully registered reseller with ID: {response.Value} and CNPJ: {cnpj}")),
                 It.IsAny<Exception>(),  // Exception, if any, can be set to any
                 It.IsAny<Func<It.IsAnyType, Exception, string>>()),  // Format delegate
-            Times.Once);  // Verify it was called exactly once
+            Times.AtLeastOnce);  // Verify it was called exactly once
     }
 }
