@@ -48,7 +48,7 @@ This service is responsible for placing reseller orders with the **SUPPLIER** AP
 Ensure you have the following installed:
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - [Docker](https://www.docker.com/)
-- PostgreSQL (or use Docker for local development)
+- Entitity framework in memory (or use Docker for local development)
 
 ### Running the Project  
 ```sh
