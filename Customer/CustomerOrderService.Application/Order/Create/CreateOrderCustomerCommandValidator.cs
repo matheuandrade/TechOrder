@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace CustomerOrderService.Application.Order.Create;
 
-internal sealed class RegisterUserCommandValidator : AbstractValidator<OrderDto>
+internal sealed class CreateOrderCustomerCommandValidator : AbstractValidator<OrderDto>
 {
-    public RegisterUserCommandValidator()
+    public CreateOrderCustomerCommandValidator()
     {
         RuleFor(c => c.CPF)
             .NotEmpty().NotNull().WithMessage("CPF é obrigatorio.")

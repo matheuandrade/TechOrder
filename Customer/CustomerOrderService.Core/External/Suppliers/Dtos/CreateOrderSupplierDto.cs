@@ -1,4 +1,4 @@
-﻿namespace CustomerOrderService.Infrastructure.External.Suppliers.Models;
+﻿namespace CustomerOrderService.Core.External.Suppliers.Models;
 
 public class CreateOrderSupplierDto
 {

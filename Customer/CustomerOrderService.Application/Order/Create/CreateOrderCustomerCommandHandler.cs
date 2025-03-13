@@ -1,9 +1,8 @@
 ﻿using CustomerOrderService.Core.Entities.OrderErrors;
+using CustomerOrderService.Core.External.Suppliers.Interfaces;
+using CustomerOrderService.Core.External.Suppliers.Models;
 using CustomerOrderService.Core.Interfaces;
-using CustomerOrderService.Infrastructure.External.Suppliers.Interfaces;
-using CustomerOrderService.Infrastructure.External.Suppliers.Models;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SharedKernel;
 
@@ -11,17 +10,14 @@ namespace CustomerOrderService.Application.Order.Create;
 
 public class CreateOrderCustomerCommandHandler(IRepository<Core.Entities.Order> repository,
                                             ISupplierApiService supplierApiService,
-                                            ILogger<CreateOrderCustomerCommand> logger,
-                                            IConfiguration config)
+                                            ILogger<CreateOrderCustomerCommand> logger)
     : IRequestHandler<CreateOrderCustomerCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateOrderCustomerCommand request, CancellationToken cancellationToken)
     {
-        var resellerCPNJ = config.GetValue<string>("Revenda:CNPJ")!;
-
         var orderSupplierRequest = new CreateOrderSupplierDto
         {
-            CNPJ = resellerCPNJ,
+            CNPJ = request.CNPJ,
             Products = request.Order.Products
             .Select(x => new OrderItemDto
             {

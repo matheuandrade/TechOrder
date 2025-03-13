@@ -14,6 +14,7 @@ internal sealed class Order : IEndpoint
     {
         app.MapPost("/orders", async (OrderDto request,
                                       IValidator<OrderDto> validator,
+                                      IConfiguration config,
                                       ISender sender,
                                       CancellationToken cancellationToken) =>
         {
@@ -24,12 +25,12 @@ internal sealed class Order : IEndpoint
                 return Results.BadRequest(validationResult.Errors);
             }
 
-            var command = new CreateOrderCustomerCommand(request);
+            var command = new CreateOrderCustomerCommand(config.GetValue<string>("CNPJ")!, request);
 
             Result<Guid> result = await sender.Send(command, cancellationToken);
 
-            return result.Match(id => Results.Created($"/resellers/{id}", new { id }), CustomResults.Problem);
+            return result.Match(id => Results.Created($"/orders/{id}", new { id }), CustomResults.Problem);
         })
-        .WithTags("resellers");
+        .WithTags("orders");
     }
 }

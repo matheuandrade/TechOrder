@@ -4,4 +4,4 @@ using SharedKernel;
 
 namespace CustomerOrderService.Application.Order.Create;
 
-public sealed record CreateOrderCustomerCommand(OrderDto Order) : IRequest<Result<Guid>>;
+public sealed record CreateOrderCustomerCommand(string CNPJ, OrderDto Order) : IRequest<Result<Guid>>;

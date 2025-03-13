@@ -1,5 +1,5 @@
-﻿using CustomerOrderService.Infrastructure.External.Suppliers.Interfaces;
-using CustomerOrderService.Infrastructure.External.Suppliers.Models;
+﻿using CustomerOrderService.Core.External.Suppliers.Interfaces;
+using CustomerOrderService.Core.External.Suppliers.Models;
 using Newtonsoft.Json;
 using System.Text;
 
