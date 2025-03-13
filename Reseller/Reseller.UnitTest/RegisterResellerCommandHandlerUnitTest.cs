@@ -22,7 +22,9 @@ public class RegisterResellerCommandHandlerUnitTest
         _loggerMock = new();
 
         // Instantiate the handler with the mocked repository
-        _handler = new RegisterResellerCommandHandler(_resellerRepositoryMock.Object, _suplierApiServiceMock.Object, _loggerMock.Object);
+        _handler = new RegisterResellerCommandHandler(_resellerRepositoryMock.Object,
+                                                      _suplierApiServiceMock.Object,
+                                                      _loggerMock.Object);
     }
 
     [Fact]
@@ -95,5 +97,14 @@ public class RegisterResellerCommandHandlerUnitTest
 
         Assert.True(response.IsSuccess);
         Assert.IsType<SharedKernel.Result<Guid>>(response);
+
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Information,  // Specify the log level
+                It.IsAny<EventId>(),    // EventId is typically not important in this case
+                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains($"Company created on supplier with id: {guid}")),
+                It.IsAny<Exception>(),  // Exception, if any, can be set to any
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()),  // Format delegate
+            Times.Once);  // Verify it was called exactly once
     }
 }
