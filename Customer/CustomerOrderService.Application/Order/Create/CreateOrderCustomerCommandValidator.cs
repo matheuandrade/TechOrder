@@ -23,6 +23,15 @@ internal sealed class CreateOrderCustomerCommandValidator : AbstractValidator<Or
                         .NotEmpty().NotNull().WithMessage("Quantidade é obrigatória.")
                         .GreaterThan(0).WithMessage("Informe uma quantidade valida.");
                 });
+
+        RuleFor(c => c.Products)
+            .Must(MinimumQuantity).WithMessage("Deve haver um pedido minimo de 1000 unidades.");
+
+    }
+
+    private static bool MinimumQuantity(List<OrderItemDto> products)
+    {
+        return products?.Sum(x => x.Quantity) >= 1000;
     }
 
     private static bool BeValidCpf(string? cpf)
