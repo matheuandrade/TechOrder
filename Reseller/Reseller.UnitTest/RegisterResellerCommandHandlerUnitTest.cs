@@ -47,7 +47,7 @@ public class RegisterResellerCommandHandlerUnitTest
     }
 
     [Fact]
-    public async Task ShouldRegisterCompanySuccessfully()
+    public async Task ShouldReturnErrorMessageForACompanyWhoAlreadyExistsOnSupplier()
     {
         var cnpj = "cpnj";
 
@@ -59,6 +59,37 @@ public class RegisterResellerCommandHandlerUnitTest
         _resellerRepositoryMock
         .Setup(x => x.AnyAsync(It.IsAny<Expression<Func<ResellerService.Core.Entities.ResellerAggregate.Reseller, bool>>>(), It.IsAny<CancellationToken>()))
         .ReturnsAsync(false);
+
+        Guid? guid = null;
+        _suplierApiServiceMock
+            .Setup(x => x.CreateSupplier(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(guid);
+
+        var response = await _handler.Handle(command, new CancellationToken());
+
+        Assert.False(response.IsSuccess);
+        Assert.NotNull(response.Error);
+        Assert.Equal("Empresa já cadastrada junto ao fornecedor", response.Error.Description);
+    }
+
+    [Fact]
+    public async Task ShouldRegisterCompanySuccessfully()
+    {
+        var cnpj = "cpnj";
+
+        var command = new RegisterResellerCommand(new ResellerService.Aplication.Dtos.ResellerDto
+        {
+            CNPJ = cnpj,
+        });
+
+        _resellerRepositoryMock
+            .Setup(x => x.AnyAsync(It.IsAny<Expression<Func<ResellerService.Core.Entities.ResellerAggregate.Reseller, bool>>>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(false);
+
+        var guid = Guid.NewGuid();
+        _suplierApiServiceMock
+            .Setup(x => x.CreateSupplier(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(guid);
 
         var response = await _handler.Handle(command, new CancellationToken());
 
