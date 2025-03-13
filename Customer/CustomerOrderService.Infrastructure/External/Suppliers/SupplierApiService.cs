@@ -7,7 +7,7 @@ namespace CustomerOrderService.Infrastructure.External.Suppliers;
 
 public class SupplierApiService(IHttpClientFactory httpClientFactory) : ISupplierApiService
 {
-    private readonly HttpClient _httpClient = httpClientFactory.CreateClient("ExternalApiClient");
+    private readonly HttpClient _httpClient = httpClientFactory.CreateClient("SupplierApi");
 
     public async Task<Guid?> CreateSupplyOrder(CreateOrderSupplierDto model, CancellationToken cancellationToken)
     {
