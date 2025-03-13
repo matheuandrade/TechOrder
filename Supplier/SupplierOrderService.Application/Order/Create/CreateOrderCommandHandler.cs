@@ -1,15 +1,15 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SharedKernel;
-using SupplierOrderService.Application.Abstractions.Data;
 using SupplierOrderService.Core.Entities;
 using SupplierOrderService.Core.Entities.Errors;
+using SupplierOrderService.Core.Interfaces;
 
 namespace SupplierOrderService.Application.Order.Create;
 
-public class CreateOrderCommandHandler(IApplicationDbContext context,
-                                            ILogger<CreateOrderCommandHandler> logger)
+public class CreateOrderCommandHandler(IRepository<Core.Entities.Order> orderRepository,
+                                       IRepository<Core.Entities.Reseller> resellerRepository,
+                                       ILogger<CreateOrderCommandHandler> logger)
     : IRequestHandler<CreateOrderCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -18,7 +18,7 @@ public class CreateOrderCommandHandler(IApplicationDbContext context,
         logger.LogInformation("Attempting to create order for reseller with CNPJ: {CNPJ}", request.Order.CNPJ);
 
         // Verificando se o CNPJ existe na base de dados
-        if (!await context.Resellers.AnyAsync(x => x.CNPJ == request.Order.CNPJ, cancellationToken))
+        if (!await resellerRepository.AnyAsync(x => x.CNPJ == request.Order.CNPJ, cancellationToken))
         {
             logger.LogWarning("Order creation failed: Reseller with CNPJ {CNPJ} not found", request.Order.CNPJ);
             return Result.Failure<Guid>(ResellerErrors.CNPJNotExists);
@@ -48,8 +48,8 @@ public class CreateOrderCommandHandler(IApplicationDbContext context,
         // Todo: adicionar lógica para validar a disponibilidade de estoque no fornecedor
 
         // Persistindo o pedido no banco de dados
-        await context.Orders.AddAsync(order, cancellationToken);
-        await context.SaveChangesAsync(cancellationToken);
+        await orderRepository.AddAsync(order, cancellationToken);
+        await orderRepository.SaveChangesAsync(cancellationToken);
 
         // Logando o sucesso na criação do pedido
         logger.LogInformation("Order successfully created with id: {OrderId}", order.Id);
