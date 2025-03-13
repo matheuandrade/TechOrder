@@ -51,6 +51,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomeOrderService.UnitTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierOrderService.UnitTests", "Supplier\SupplierOrderService.UnitTests\SupplierOrderService.UnitTests.csproj", "{DBA3EEDE-F132-48F4-A01E-71D892A20F7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{82C6DEA5-37FC-4DB0-9B30-0EB7D2D8CF54}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +156,7 @@ Global
 		{F4850E95-1B5D-45EF-ADCF-80A44295519A} = {03BD68E4-8221-4F4E-942B-CF7A1CE2AA11}
 		{87E4FC71-C02E-49B1-A985-83496553112E} = {C04C76CB-DDD6-4CD8-AEB4-1278BBABFC2B}
 		{DBA3EEDE-F132-48F4-A01E-71D892A20F7B} = {DF269BD2-D97F-4A7B-B1B2-20BC413E0C05}
+		{82C6DEA5-37FC-4DB0-9B30-0EB7D2D8CF54} = {BB8DB767-FE21-4314-9A05-DFD94C068DFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {557A067C-49F3-4525-86E4-D92F327DF478}
