@@ -1,4 +1,5 @@
-﻿using CustomerOrderService.Core.External.Suppliers.Interfaces;
+﻿using CustomerOrderService.Core.External.Suppliers.Dtos;
+using CustomerOrderService.Core.External.Suppliers.Interfaces;
 using CustomerOrderService.Core.External.Suppliers.Models;
 using Newtonsoft.Json;
 using System.Text;
@@ -19,6 +20,8 @@ public class SupplierApiService(IHttpClientFactory httpClientFactory) : ISupplie
         if (response.StatusCode != System.Net.HttpStatusCode.Created)
             return null;
 
-        return JsonConvert.DeserializeObject<Guid>(contentAsString);
+        var responseObject = JsonConvert.DeserializeObject<CreateSupplierResponseDto>(contentAsString);
+
+        return responseObject?.Id;
     }
 }
